@@ -1,5 +1,15 @@
 .sidebarContainer {
   height: 100%;
-  width: 17rem;
+  width: 20%;
   /* border: 1px solid white; */
+}
+
+@media screen and (max-width: 768px) {
+  .sidebarContainer {
+    position: absolute;
+    z-index: 10;
+    width: 50%;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.753);
+  }
 }

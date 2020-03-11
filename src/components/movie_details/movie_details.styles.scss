@@ -24,7 +24,7 @@
     .title {
       font-size: 2.5rem;
       justify-self: center;
-     
+
       .year {
         color: #ccc;
         font-size: 1.3rem;
@@ -73,12 +73,31 @@
         font-size: 0.8rem;
 
         img {
-          width: 70px;
-          height: 70px;
+          width: 55px;
+          height: 55px;
           object-fit: cover;
           border-radius: 50%;
         }
       }
     }
+  }
+}
+@media screen and (max-width: 1250px) {
+  main {
+    grid-template-columns: 1fr 3fr 1fr;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .mainContentContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/*Mobil eller mindre plattor*/
+
+@media screen and (max-width: 768px) {
+  .mainContentContainer {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

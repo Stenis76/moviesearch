@@ -30,3 +30,19 @@ a {
   color: #ffcb9a;
   color: #116466;
 }
+
+/* Big screen */
+
+@media screen and (min-width: 1500px) {
+  .mainContentContainer {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Ipad */
+
+@media screen and (max-width: 768px) {}
+
+/* Mobile */
+
+@media screen and (max-width: 320px) {}
