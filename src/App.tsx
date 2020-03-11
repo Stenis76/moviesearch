@@ -13,6 +13,7 @@ import Header from "./containers/header/header";
 import Sidebar from "./components/sidebar/sidebar";
 import MainContent from "./components/main_content/main_content";
 import Navbar from "./components/navbar/navbar";
+import ErrorBoundary from "./errorBoundary";
 
 const styles: CSSProperties = {
   display: "flex",
@@ -63,7 +64,7 @@ class App extends React.Component<{}, IState> {
   }
 
   setSearchQuery = (query: string) => {
-    this.setState({ query: query + "-" + (new Date())});
+    this.setState({ query: query + "-" + new Date() });
   };
 
   componentWillUnmount() {
@@ -75,38 +76,46 @@ class App extends React.Component<{}, IState> {
   render() {
     const { currentUser, query } = this.state;
     return (
-      <>
-        <Header setSearchQuery={this.setSearchQuery} />
-        <div style={styles}>
-          <Sidebar>
-            <Navbar currentUser={currentUser} />
-          </Sidebar>
-          <Switch>
-            <Route
-              exact
-              path="/signin"
-              render={() => (currentUser ? <Redirect to="/" /> : <SignIn />)}
-            />
-            <Route
-              exact
-              path="/register"
-              render={() => (currentUser ? <Redirect to="/" /> : <SignUp />)}
-            />
-            <Route exact path="/">
-              <Redirect from="/" to ="trending" />
-            </Route>
-            <Route path="/trending">
-              <MainContent query={query} />
-            </Route>
-            <Route path="/popular">
-              <MainContent query={query} />
-            </Route>
-            <Route path="/new">
-              <MainContent query={query} />
-            </Route>
-          </Switch>
-        </div>
-      </>
+      <ErrorBoundary>
+        <>
+          <ErrorBoundary>
+            <Header setSearchQuery={this.setSearchQuery} />
+          </ErrorBoundary>
+          <div style={styles}>
+            <ErrorBoundary>
+              <Sidebar>
+                <Navbar currentUser={currentUser} />
+              </Sidebar>
+            </ErrorBoundary>
+            <Switch>
+              <Route
+                exact
+                path="/signin"
+                render={() => (currentUser ? <Redirect to="/" /> : <SignIn />)}
+              />
+              <Route
+                exact
+                path="/register"
+                render={() => (currentUser ? <Redirect to="/" /> : <SignUp />)}
+              />
+              <Route exact path="/">
+                <Redirect from="/" to="trending" />
+              </Route>
+              <Route path="/trending">
+                <MainContent query={query} />
+              </Route>
+              <Route path="/popular">
+                <MainContent query={query} />
+              </Route>
+              <ErrorBoundary>
+                <Route path="/new">
+                  <MainContent query={query} />
+                </Route>
+              </ErrorBoundary>
+            </Switch>
+          </div>
+        </>
+      </ErrorBoundary>
     );
   }
 }

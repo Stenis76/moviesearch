@@ -24,6 +24,7 @@ interface IProps extends RouteComponentProps {
 
 const MainContent: FC<IProps> = ({ match, history, query }) => {
   const [movies, setMovies] = useState<any[]>([]);
+  //const [currentPage, setCurrentPage] = useState<number>(1);
 
   // match.path : "trending" | "popular" | "new"
   // om match.path ändras så kommer denna funktionen köras igen
@@ -47,16 +48,24 @@ const MainContent: FC<IProps> = ({ match, history, query }) => {
   useEffect(() => {
     if (query) {
       const trimmedQuery = query.split("-")[0];
-      console.log("query");
-      
-      searchMovie(trimmedQuery).then(movies => {
+
+      searchMovie(trimmedQuery, 1).then(movies => {
         setMovies(movies);
-        history.push(match.path)
+        history.push(match.path);
       });
     }
   }, [query]);
 
+  // const fetchMoreMovies = (pageNumber: number) => {
+  //   if (query) {
+  //     const trimmedQuery = query.split("-")[0];
 
+  //     searchMovie(trimmedQuery, pageNumber).then(movies => {
+  //       setMovies([...movies]);
+  //       history.push(match.path);
+  //     });
+  //   }
+  // };
 
   return (
     <Switch>

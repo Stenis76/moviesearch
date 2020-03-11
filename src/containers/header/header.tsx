@@ -9,10 +9,18 @@ interface Iprops {
 }
 
 class Header extends React.Component<Iprops> {
+  errorTest = () => {
+    if (1 > 99) {
+      // Simulate a JS error
+      throw new Error("I craaashed!");
+    }
+    return <Profile />;
+  };
+
   render() {
     return (
       <div className="headerContainer">
-        <Profile />
+        {this.errorTest()}
         <img src={logo} style={{ height: "70%" }} alt={"site title"} />
         <SearchBar
           // id={1}
